@@ -23,8 +23,10 @@ class Fluid:
         self.diff = 0.0000  # Diffusion
         self.visc = 0.0000  # viscosity
 
-        self.s = np.full((self.size, self.size), 0, dtype=float)        # Previous density
-        self.density = np.full((self.size, self.size), 0, dtype=float)  # Current density
+        self.s = np.full((self.size, self.size), 0,
+                         dtype=float)        # Previous density
+        self.density = np.full((self.size, self.size), 0,
+                               dtype=float)  # Current density
 
         # array of 2d vectors, [x, y]
         self.velo = np.full((self.size, self.size, 2), 0, dtype=float)
@@ -34,12 +36,14 @@ class Fluid:
         self.diffuse(self.velo0, self.velo, self.visc)
 
         # x0, y0, x, y
-        self.project(self.velo0[:, :, 0], self.velo0[:, :, 1], self.velo[:, :, 0], self.velo[:, :, 1])
+        self.project(self.velo0[:, :, 0], self.velo0[:, :, 1],
+                     self.velo[:, :, 0], self.velo[:, :, 1])
 
         self.advect(self.velo[:, :, 0], self.velo0[:, :, 0], self.velo0)
         self.advect(self.velo[:, :, 1], self.velo0[:, :, 1], self.velo0)
 
-        self.project(self.velo[:, :, 0], self.velo[:, :, 1], self.velo0[:, :, 0], self.velo0[:, :, 1])
+        self.project(self.velo[:, :, 0], self.velo[:, :, 1],
+                     self.velo0[:, :, 0], self.velo0[:, :, 1])
 
         self.diffuse(self.s, self.density, self.diff)
 
@@ -51,7 +55,8 @@ class Fluid:
 
         for iteration in range(0, self.iter):
             # Calculates the interactions with the 4 closest neighbors
-            x[1:-1, 1:-1] = (x0[1:-1, 1:-1] + a * (x[2:, 1:-1] + x[:-2, 1:-1] + x[1:-1, 2:] + x[1:-1, :-2])) * c_recip
+            x[1:-1, 1:-1] = (x0[1:-1, 1:-1] + a * (x[2:, 1:-1] +
+                                                   x[:-2, 1:-1] + x[1:-1, 2:] + x[1:-1, :-2])) * c_recip
 
             self.set_boundaries(x)
 
@@ -72,10 +77,12 @@ class Fluid:
             table[self.size - 1, :, 0] = - table[self.size - 1, :, 0]
 
         table[0, 0] = 0.5 * (table[1, 0] + table[0, 1])
-        table[0, self.size - 1] = 0.5 * (table[1, self.size - 1] + table[0, self.size - 2])
-        table[self.size - 1, 0] = 0.5 * (table[self.size - 2, 0] + table[self.size - 1, 1])
+        table[0, self.size - 1] = 0.5 * \
+            (table[1, self.size - 1] + table[0, self.size - 2])
+        table[self.size - 1, 0] = 0.5 * \
+            (table[self.size - 2, 0] + table[self.size - 1, 1])
         table[self.size - 1, self.size - 1] = 0.5 * table[self.size - 2, self.size - 1] + \
-                                              table[self.size - 1, self.size - 2]
+            table[self.size - 1, self.size - 2]
 
     def diffuse(self, x, x0, diff):
         if diff != 0:
@@ -88,8 +95,8 @@ class Fluid:
         # numpy equivalent to this in a for loop:
         # div[i, j] = -0.5 * (velo_x[i + 1, j] - velo_x[i - 1, j] + velo_y[i, j + 1] - velo_y[i, j - 1]) / self.size
         div[1:-1, 1:-1] = -0.5 * (
-                velo_x[2:, 1:-1] - velo_x[:-2, 1:-1] +
-                velo_y[1:-1, 2:] - velo_y[1:-1, :-2]) / self.size
+            velo_x[2:, 1:-1] - velo_x[:-2, 1:-1] +
+            velo_y[1:-1, 2:] - velo_y[1:-1, :-2]) / self.size
         p[:, :] = 0
 
         self.set_boundaries(div)
@@ -138,7 +145,7 @@ class Fluid:
 
                 try:
                     d[i, j] = s0 * (t0 * d0[i0i, j0i] + t1 * d0[i0i, j1i]) + \
-                              s1 * (t0 * d0[i1i, j0i] + t1 * d0[i1i, j1i])
+                        s1 * (t0 * d0[i1i, j0i] + t1 * d0[i1i, j1i])
                 except IndexError:
                     # tmp = str("inline: i0: %d, j0: %d, i1: %d, j1: %d" % (i0, j0, i1, j1))
                     # print("tmp: %s\ntmp1: %s" %(tmp, tmp1))
@@ -159,6 +166,48 @@ class Fluid:
         elif self.cnty == 0:
             self.roty = self.rotx
         return self.rotx, self.roty
+
+
+def GetConfig():
+    howManyDensitySources = 0
+    howManyVelocitySources = 0
+
+    data = []
+
+    try:
+        print("How Many Density Sources?")
+        print("> ", end='')
+        howManyDensitySources = int(input())
+    except:
+        print("Not a valid input!")
+        exit(-1)
+
+    try:
+        print("How Many Velocity Sources?")
+        print("> ", end='')
+        howManyVelocitySources = int(input())
+    except:
+        print("Not a valid input!")
+        exit(-1)
+
+    for i in range(howManyDensitySources):
+        print("["+i+1+" of "+howManyDensitySources +
+              "] Enter the details of the Density Source:")
+        print("> X: ", end='')
+        x = int(input())
+        print("> Y: ", end='')
+        y = int(input())
+        print("> Size: ", end='')
+        s = int(input())
+        print("> Density: ", end='')
+        d = int(input())
+
+        data.append({
+            "x": x,
+            "y": y,
+            "size": s,
+            "density": d
+        })
 
 
 if __name__ == "__main__":
@@ -185,7 +234,8 @@ if __name__ == "__main__":
         im = plt.imshow(inst.density, vmax=100, interpolation='bilinear')
 
         # plot vector field
-        q = plt.quiver(inst.velo[:, :, 1], inst.velo[:, :, 0], scale=10, angles='xy')
+        q = plt.quiver(inst.velo[:, :, 1],
+                       inst.velo[:, :, 0], scale=10, angles='xy')
         anim = animation.FuncAnimation(fig, update_im, interval=0)
         anim.save("movie.mp4", fps=30, extra_args=['-vcodec', 'libx264'])
         plt.show()
