@@ -249,7 +249,8 @@ if __name__ == "__main__":
         q = plt.quiver(inst.velo[:, :, 1],
                        inst.velo[:, :, 0], scale=10, angles='xy')
         anim = animation.FuncAnimation(fig, update_im, interval=0)
-        anim.save("movie.mp4", fps=60, extra_args=['-vcodec', 'libx264'])
+        anim.save("movie_"+args.configFilename.replace(".json", "") +
+                  ".mp4", fps=60, extra_args=['-vcodec', 'libx264'])
         plt.show()
 
     except ImportError:
