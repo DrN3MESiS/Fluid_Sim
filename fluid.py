@@ -220,6 +220,34 @@ if __name__ == "__main__":
                 vec = src.get('vec')
                 inst.velo[x0, y0] = [vec[0], vec[1]]
 
+
+            objs = config.get('objects', [])
+            for obj in objs:
+                x0 = obj.get("centerX", 2)
+                y0 = obj.get("centerY", 2)
+                objType = obj.get("type")
+
+                if objType == "box":
+                    if x0 < 2 or x0 > (inst.size-3):
+                        continue
+                    if y0 < 2 or y0 > (inst.size-3):
+                        continue
+
+                    inst.density[x0, y0] = 0
+
+                    inst.density[x0, y0+1] = 0
+                    inst.density[x0, y0-1] = 0
+                    inst.density[x0+1, y0] = 0
+                    inst.density[x0-1, y0] = 0
+
+                    inst.density[x0+1, y0+1] = 0
+                    inst.density[x0-1, y0-1] = 0
+                    inst.density[x0+1, y0-1] = 0
+                    inst.density[x0-1, y0+1] = 0
+                elif objType == "triangle":
+                    pass
+
+
             inst.step()
             im.set_array(inst.density)
             q.set_UVC(inst.velo[:, :, 1], inst.velo[:, :, 0])
