@@ -202,6 +202,7 @@ if __name__ == "__main__":
         inst = Fluid()
 
         def update_im(i):
+            # We add velocity vector values in here
             denSrc = config.get('densitySources', [])
             for src in denSrc:
                 x0 = src.get('X0')
@@ -211,6 +212,7 @@ if __name__ == "__main__":
                 pwo = src.get('power')
                 inst.density[x0:y0, x1:y1] += pwo
 
+            # We add new density creators in here
             velSrc = config.get('velocitySources', [])
             for src in velSrc:
                 x0 = src.get('X')
@@ -218,14 +220,9 @@ if __name__ == "__main__":
                 vec = src.get('vec')
                 inst.velo[x0, y0] = [vec[0], vec[1]]
 
-            # We add new density creators in here
-            # inst.density[14:17, 14:17] += 100  # add density into a 3*3 square
-            # We add velocity vector values in here
-            # inst.velo[20, 20] = [-2, -2]
             inst.step()
             im.set_array(inst.density)
             q.set_UVC(inst.velo[:, :, 1], inst.velo[:, :, 0])
-            # print(f"Density sum: {inst.density.sum()}")
             im.autoscale()
 
         fig = plt.figure()

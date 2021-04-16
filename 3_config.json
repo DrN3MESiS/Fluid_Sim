@@ -28,6 +28,12 @@
                 -1
             ]
         }
-        
+    ],
+    "objects":[
+        {
+            "type":"box",
+            "centerX": 50,
+            "centerY": 50
+        }
     ]
 }
