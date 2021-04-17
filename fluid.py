@@ -198,7 +198,7 @@ if __name__ == "__main__":
         INTERVAL_BOOL = False
 
         def update_im(self, i):
-            print(f"Rendered Frame #{i}")
+            # print(f"Rendered Frame #{i}")
             ANIM_SPIN_SPEED = 10
             # DENSITIES
             denSrc = config.get('densitySources', [])
@@ -227,9 +227,8 @@ if __name__ == "__main__":
                 y0 = src.get('Y')
                 vec = src.get('vec')
                 animType = src.get('animation', "regular")
-                if animType == "regular":
-                    inst.velo[x0, y0] = [vec[0], vec[1]]
-                elif animType == "spin":
+
+                if animType == "spin":
                     angle = i * math.pi/180 * ANIM_SPIN_SPEED
                     rotMat = np.array(
                         [[math.cos(angle), -math.sin(angle)], [math.sin(angle), math.cos(angle)]])
@@ -250,6 +249,8 @@ if __name__ == "__main__":
                         inst.velo[x0, y0] = R
                     else:
                         inst.velo[x0, y0] = P
+                else:
+                    inst.velo[x0, y0] = [vec[0], vec[1]]
 
             # OBJECTS
             objs = config.get('objects', [])

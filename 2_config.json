@@ -23,15 +23,17 @@
             "vec": [
                 1,
                 1
-            ]
+            ],
+            "animation": "regular"
         },
         {
             "X": 30,
-            "Y": 50,
+            "Y": 30,
             "vec": [
                 1,
                 -1
-            ]
+            ],
+            "animation": "spin"
         }
         
     ]
