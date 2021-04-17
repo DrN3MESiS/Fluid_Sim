@@ -15,3 +15,4 @@ Challenge of Objects is complete. It took me a while to realise that I only need
 will be the animation part. I'll continue to think about a solution.
 
 - 17/04/2021
+Nevermind. Creo que era mas facil de lo que pensaba. Cree una matriz de rotación para el vector y me funciono perfectamente.

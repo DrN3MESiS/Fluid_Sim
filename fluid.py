@@ -190,19 +190,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if not os.path.isfile(args.configFilename):
         print("[NOT_FOUND] File was not found or is not accessible")
-        sys.exit()
+        exit()
 
     config = _LoadDataFromJSON(args.configFilename)
 
-    try:
-        import matplotlib.pyplot as plt
-        from matplotlib import cm
-        from matplotlib import animation
+    class Staging:
+        INTERVAL_BOOL = False
 
-        inst = Fluid()
-
-        def update_im(i):
-
+        def update_im(self, i):
+            print(f"Rendered Frame #{i}")
+            ANIM_SPIN_SPEED = 10
             # DENSITIES
             denSrc = config.get('densitySources', [])
             for src in denSrc:
@@ -229,7 +226,30 @@ if __name__ == "__main__":
                 x0 = src.get('X')
                 y0 = src.get('Y')
                 vec = src.get('vec')
-                inst.velo[x0, y0] = [vec[0], vec[1]]
+                animType = src.get('animation', "regular")
+                if animType == "regular":
+                    inst.velo[x0, y0] = [vec[0], vec[1]]
+                elif animType == "spin":
+                    angle = i * math.pi/180 * ANIM_SPIN_SPEED
+                    rotMat = np.array(
+                        [[math.cos(angle), -math.sin(angle)], [math.sin(angle), math.cos(angle)]])
+                    P = [vec[0], vec[1]]
+
+                    R = np.matmul(P, rotMat)
+                    inst.velo[x0, y0] = R
+                elif animType == "reflection":
+                    rotMat = np.array(
+                        [[-1, 0], [0, -1]])
+                    P = [vec[0], vec[1]]
+
+                    if i % 20 == 0:
+                        self.INTERVAL_BOOL = not self.INTERVAL_BOOL
+
+                    R = np.matmul(P, rotMat)
+                    if self.INTERVAL_BOOL:
+                        inst.velo[x0, y0] = R
+                    else:
+                        inst.velo[x0, y0] = P
 
             # OBJECTS
             objs = config.get('objects', [])
@@ -282,10 +302,19 @@ if __name__ == "__main__":
                     inst.density[x0+2, y0-1] = 0
 
                     inst.density[x0, y0+2] = 0
+
             inst.step()
             im.set_array(inst.density)
             q.set_UVC(inst.velo[:, :, 1], inst.velo[:, :, 0])
             im.autoscale()
+
+    try:
+        import matplotlib.pyplot as plt
+        from matplotlib import cm
+        from matplotlib import animation
+
+        inst = Fluid()
+        stage = Staging()
 
         fig = plt.figure()
 
@@ -307,7 +336,7 @@ if __name__ == "__main__":
         # plot vector field
         q = plt.quiver(inst.velo[:, :, 1],
                        inst.velo[:, :, 0], scale=10, angles='xy')
-        anim = animation.FuncAnimation(fig, update_im, interval=0)
+        anim = animation.FuncAnimation(fig, stage.update_im, interval=0)
         anim.save("movie_"+args.configFilename.replace(".json", "") +
                   ".mp4", fps=60, extra_args=['-vcodec', 'libx264'])
         plt.show()
