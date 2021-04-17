@@ -1,8 +1,17 @@
-- Config Loader
+ = Development Log = 
+
+- 19/03/2021
 At first, my initial thought about the way of making the simulation accept multiple sources was to create a form-like menu in the console in order to ask for details.
 This proved to be really inefficient, so I opted instead to create JSON Config Files that would hold all the information required by the simulation.
 
 The implementation of the JSON Config file, also was useful for all the tasks that were left. As an example, there's an specific key in the JSON that allows you to change the color scheme to whatever you put there (according to the accepted values).
 
+- 04/04/2021
 The real challenges became apparent when I got to the part where I had to implement the animations for the velocities and the presence of objects.
 Talking about the objects, at first I couldn't figure out a way to create an object entity, where the fluids would "collide" with them. This happened because I didn't knew how to do that
+
+- 16/04/2021
+Challenge of Objects is complete. It took me a while to realise that I only needed to set the space needed for the object for it to always be 0s. The one that is going to be really challenging
+will be the animation part. I'll continue to think about a solution.
+
+- 17/04/2021
