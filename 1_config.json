@@ -1,0 +1,80 @@
+{
+    "setup":{
+        "colorScheme": "Oranges"
+    },
+    "densitySources": [
+        {
+            "centerX": 40,
+            "centerY": 45,
+            "size":10,
+            "power": 500
+        },
+        {
+            "centerX": 10,
+            "centerY": 15,
+            "size":10,
+            "power": 100
+        }
+    ],
+    "velocitySources":[
+        {
+            "X": 20,
+            "Y": 5,
+            "vec": [
+                1,
+                1
+            ],
+            "animation": "reflection"
+        },
+        {
+            "X": 0,
+            "Y": 20,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "spin"
+        },
+        {
+            "X": 0,
+            "Y": 30,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "regular"
+        },
+        {
+            "X": 0,
+            "Y": 40,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "regular"
+        },
+        {
+            "X": 0,
+            "Y": 50,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "regular"
+        }
+    ],
+    "objects":[
+        {
+            "type":"box",
+            "centerX": 45,
+            "centerY": 18,
+            "size": 5
+        },
+        {
+            "type":"box",
+            "centerX": 10,
+            "centerY": 10,
+            "size": 5
+        }
+    ]
+}

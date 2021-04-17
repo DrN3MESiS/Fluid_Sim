@@ -1,0 +1,78 @@
+{
+    "setup":{
+        "colorScheme": "afmhot"
+    },
+    "densitySources": [
+        {
+            "centerX": 40,
+            "centerY": 45,
+            "size":5,
+            "power": 100
+        },
+        {
+            "centerX": 15,
+            "centerY": 20,
+            "size":5,
+            "power": 100
+        }
+    ],
+    "velocitySources":[
+        {
+            "X": 0,
+            "Y": 10,
+            "vec": [
+                1,
+                1
+            ],
+            "animation": "regular"
+        },
+        {
+            "X": 10,
+            "Y": 20,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "spin"
+        },
+        {
+            "X": 30,
+            "Y": 30,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "regular"
+        },
+        {
+            "X": 20,
+            "Y": 40,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "reflection"
+        },
+        {
+            "X": 30,
+            "Y": 50,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "regular"
+        }
+    ],
+    "objects":[
+        {
+            "type":"triangle",
+            "centerX": 50,
+            "centerY": 22
+        },
+        {
+            "type":"triangle",
+            "centerX": 52,
+            "centerY": 45
+        }
+    ]
+}

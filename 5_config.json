@@ -1,0 +1,66 @@
+{
+    "setup":{
+        "colorScheme": "jet"
+    },
+    "densitySources": [
+        {
+            "centerX": 40,
+            "centerY": 45,
+            "size": 10,
+            "power": 100
+        },
+        {
+            "centerX": 15,
+            "centerY": 20,
+            "size": 5,
+            "power": 100
+        }
+    ],
+    "velocitySources":[
+        {
+            "X": 0,
+            "Y": 10,
+            "vec": [
+                1,
+                1
+            ],
+            "animation": "regular"
+        },
+        {
+            "X": 0,
+            "Y": 20,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "spin"
+        },
+        {
+            "X": 0,
+            "Y": 30,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "reflection"
+        },
+        {
+            "X": 30,
+            "Y": 40,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "spin"
+        },
+        {
+            "X": 30,
+            "Y": 50,
+            "vec": [
+                1,
+                0
+            ],
+            "animation": "spin"
+        }
+    ]
+}

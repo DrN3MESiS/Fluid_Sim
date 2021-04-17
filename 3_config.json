@@ -1,0 +1,58 @@
+{
+    "setup":{
+        "colorScheme": "pink"
+    },
+    "densitySources": [
+        {
+            "centerX": 20,
+            "centerY": 30,
+            "size":10,
+            "power": 100
+        }
+    ],
+    "velocitySources":[
+        {
+            "X": 20,
+            "Y": 35,
+            "vec": [
+                1,
+                1
+            ],
+            "animation": "spin"
+        },
+        {
+            "X": 20,
+            "Y": 25,
+            "vec": [
+                1,
+                -1
+            ],
+            "animation": "reflection"
+        }
+    ],
+    "objects":[
+        {
+            "type":"box",
+            "centerX": 35,
+            "centerY": 13,
+            "size": 2
+        },
+        {
+            "type":"box",
+            "centerX": 35,
+            "centerY": 48,
+            "size": 2
+        },
+        {
+            "type":"box",
+            "centerX": 30,
+            "centerY": 30,
+            "size": 4
+        },
+        {
+            "type":"triangle",
+            "centerX": 20,
+            "centerY": 30
+        }
+    ]
+}
