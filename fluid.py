@@ -202,17 +202,28 @@ if __name__ == "__main__":
         inst = Fluid()
 
         def update_im(i):
-            # We add velocity vector values in here
+
+            # DENSITIES
             denSrc = config.get('densitySources', [])
             for src in denSrc:
-                x0 = src.get('X0')
-                y0 = src.get('Y0')
-                x1 = src.get('X1')
-                y1 = src.get('Y1')
+                x0 = src.get('centerX')
+                y0 = src.get('centerY')
+                srcSize = src.get("size")
                 pwo = src.get('power')
-                inst.density[x0:y0, x1:y1] += pwo
 
-            # We add new density creators in here
+                if x0 < srcSize or x0 > (inst.size-(srcSize+1)):
+                    continue
+                if y0 < srcSize or y0 > (inst.size-(srcSize+1)):
+                    continue
+
+                cx0 = x0-srcSize
+                cy0 = y0-srcSize
+                cx1 = x0+srcSize
+                cy1 = y0+srcSize
+
+                inst.density[cx0:cx1, cy0:cy1] += pwo
+
+            # VELOCITIES
             velSrc = config.get('velocitySources', [])
             for src in velSrc:
                 x0 = src.get('X')
@@ -220,34 +231,57 @@ if __name__ == "__main__":
                 vec = src.get('vec')
                 inst.velo[x0, y0] = [vec[0], vec[1]]
 
-
+            # OBJECTS
             objs = config.get('objects', [])
             for obj in objs:
                 x0 = obj.get("centerX", 2)
                 y0 = obj.get("centerY", 2)
                 objType = obj.get("type")
+                objSize = obj.get("size")
+                # Maximum Object Size
 
                 if objType == "box":
-                    if x0 < 2 or x0 > (inst.size-3):
+                    if objSize > 5:
+                        objSize = 5
+
+                    if objSize > 2:
+                        objSize = objSize - 2
+
+                    if x0 < objSize or x0 > (inst.size-(objSize+1)):
                         continue
-                    if y0 < 2 or y0 > (inst.size-3):
+                    if y0 < objSize or y0 > (inst.size-(objSize+1)):
+                        continue
+
+                    cx0 = x0-objSize
+                    cy0 = y0-objSize
+                    cx1 = x0+objSize
+                    cy1 = y0+objSize
+
+                    inst.density[cx0:cx1, cy0:cy1] = 0
+
+                elif objType == "triangle":
+                    if x0 < 3 or x0 > (inst.size-4):
+                        continue
+                    if y0 < 3 or y0 > (inst.size-4):
                         continue
 
                     inst.density[x0, y0] = 0
-
                     inst.density[x0, y0+1] = 0
-                    inst.density[x0, y0-1] = 0
+
                     inst.density[x0+1, y0] = 0
+                    inst.density[x0, y0-1] = 0
                     inst.density[x0-1, y0] = 0
+                    inst.density[x0, y0+1] = 0
 
                     inst.density[x0+1, y0+1] = 0
-                    inst.density[x0-1, y0-1] = 0
                     inst.density[x0+1, y0-1] = 0
+                    inst.density[x0-1, y0-1] = 0
                     inst.density[x0-1, y0+1] = 0
-                elif objType == "triangle":
-                    pass
 
+                    inst.density[x0-2, y0-1] = 0
+                    inst.density[x0+2, y0-1] = 0
 
+                    inst.density[x0, y0+2] = 0
             inst.step()
             im.set_array(inst.density)
             q.set_UVC(inst.velo[:, :, 1], inst.velo[:, :, 0])

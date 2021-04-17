@@ -4,17 +4,15 @@
     },
     "densitySources": [
         {
-            "X0": 40,
-            "Y0": 45,
-            "X1": 40,
-            "Y1": 45,
+            "centerX": 40,
+            "centerY": 45,
+            "size":10,
             "power": 500
         },
         {
-            "X0": 10,
-            "Y0": 15,
-            "X1": 10,
-            "Y1": 15,
+            "centerX": 10,
+            "centerY": 15,
+            "size":10,
             "power": 100
         }
     ],
@@ -58,6 +56,20 @@
                 1,
                 0
             ]
+        }
+    ],
+    "objects":[
+        {
+            "type":"box",
+            "centerX": 45,
+            "centerY": 18,
+            "size": 5
+        },
+        {
+            "type":"box",
+            "centerX": 10,
+            "centerY": 10,
+            "size": 5
         }
     ]
 }

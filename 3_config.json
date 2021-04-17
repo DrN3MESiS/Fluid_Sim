@@ -1,13 +1,12 @@
 {
     "setup":{
-        "colorScheme": "pink_r"
+        "colorScheme": "pink"
     },
     "densitySources": [
         {
-            "X0": 20,
-            "Y0": 40,
-            "X1": 20,
-            "Y1": 40,
+            "centerX": 20,
+            "centerY": 30,
+            "size":10,
             "power": 100
         }
     ],
@@ -32,8 +31,26 @@
     "objects":[
         {
             "type":"box",
-            "centerX": 50,
-            "centerY": 50
+            "centerX": 35,
+            "centerY": 13,
+            "size": 2
+        },
+        {
+            "type":"box",
+            "centerX": 35,
+            "centerY": 48,
+            "size": 2
+        },
+        {
+            "type":"box",
+            "centerX": 30,
+            "centerY": 30,
+            "size": 4
+        },
+        {
+            "type":"triangle",
+            "centerX": 20,
+            "centerY": 30
         }
     ]
 }
