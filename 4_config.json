@@ -23,39 +23,44 @@
             "vec": [
                 1,
                 1
-            ]
+            ],
+            "animation": "regular"
         },
         {
-            "X": 0,
+            "X": 10,
             "Y": 20,
             "vec": [
                 1,
                 0
-            ]
+            ],
+            "animation": "spin"
         },
         {
-            "X": 0,
+            "X": 30,
             "Y": 30,
             "vec": [
                 1,
                 0
-            ]
+            ],
+            "animation": "regular"
         },
         {
-            "X": 0,
+            "X": 20,
             "Y": 40,
             "vec": [
                 1,
                 0
-            ]
+            ],
+            "animation": "reflection"
         },
         {
-            "X": 0,
+            "X": 30,
             "Y": 50,
             "vec": [
                 1,
                 0
-            ]
+            ],
+            "animation": "regular"
         }
     ],
     "objects":[

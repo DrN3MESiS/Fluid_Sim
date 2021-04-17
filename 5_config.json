@@ -45,22 +45,22 @@
             "animation": "reflection"
         },
         {
-            "X": 0,
+            "X": 30,
             "Y": 40,
             "vec": [
                 1,
                 0
             ],
-            "animation": "regular"
+            "animation": "spin"
         },
         {
-            "X": 0,
+            "X": 30,
             "Y": 50,
             "vec": [
                 1,
                 0
             ],
-            "animation": "regular"
+            "animation": "spin"
         }
     ]
 }
